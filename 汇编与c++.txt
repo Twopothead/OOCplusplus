@@ -1,0 +1,24 @@
+#include <iostream>
+using namespace std;
+
+int main()
+{
+	int a[32];
+	int result;
+	int onezero[32];
+	a[0]=0x1;
+	int *aptr=NULL;
+	aptr=a;
+	_asm{
+		mov eax,32;
+		mov ecx,eax;
+		mov eax,aptr;
+		mov eax,[eax];
+		mov ebx,1;
+		shl eax,1;
+		mov result,eax;
+		
+	}
+	cout<<result;
+	return 0;
+}
