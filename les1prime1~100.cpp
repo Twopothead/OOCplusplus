@@ -1,5 +1,6 @@
 #include <iostream>
 #include <windows.h>
+#include <cstdio>
 using namespace std;
 int main()
 {
@@ -7,7 +8,7 @@ int main()
 	total=100;cout<<"Prime number between 1 and "<<total<<":"<<endl;
 	for(num=2;num<=total;num++){
 		flag=0;
-		for(k=2;k<num/2;k++){
+		for(k=2;k<=sqrt(num);k++){
 				if (flag==1)
 					break;
 				if(num%k==0)

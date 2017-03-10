@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cstdio>
+#include <windows.h>
 using namespace std;
 _int64  power(_int64 x)
 {
@@ -26,6 +27,9 @@ int main()
 {
    _int64 sum=0;
 	sum=sumpower(20);
-	printf("The sum of them is %I64d",sum);
+	printf("The sum of them is :%I64d",sum);
+	cout<<endl;
+	system("pause");
+
 	return 0;
 }

@@ -20,7 +20,6 @@ void display()
 	for(int i=0;i<8;i++)
 		cout<<queen[i]<<" ";
 	cout<<")"<<endl;
-
 }
 void Nqueen(int n)
 {
