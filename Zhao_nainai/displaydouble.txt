@@ -1,0 +1,111 @@
+#include <iostream>
+using namespace std;
+int displayfloat(float temp)
+{
+    int onezero[32]={0};
+_asm{
+        mov eax,32;
+        mov ecx,eax;
+        lea ebx,onezero;
+        mov eax,temp;
+        mov esi,0;
+    s:  clc
+        shl eax,1;
+        mov edx,0;
+        rcl edx,1;
+        mov [ebx+esi*4],edx;
+        inc esi;
+        loop s;
+    }
+    for(int i=0;i<32;i++)
+    {
+        cout<<onezero[i]<<" ";
+    }
+    cout<<"   ";
+    return 0;   
+}
+int displayint(int temp)
+{
+    int onezero[32]={0};
+_asm{
+        mov eax,32;
+        mov ecx,eax;
+        lea ebx,onezero;
+        mov eax,temp;
+        mov esi,0;
+    s:  clc
+        shl eax,1;
+        mov edx,0;
+        rcl edx,1;
+        mov [ebx+esi*4],edx;
+        inc esi;
+        loop s;
+    }
+    for(int i=0;i<32;i++)
+    {
+        cout<<onezero[i]<<" ";
+    }
+    cout<<"   ";
+    return 0;   
+}
+int displaydouble(double &temp)
+{
+
+	int *pint =(int*)&temp;
+	int hightemp=0;
+	int lowtemp=0;
+	float resultfloat=0.0;
+	_asm{
+		mov eax,pint
+		mov eax,[eax]
+		mov lowtemp,eax
+	}
+	pint++;
+	_asm{
+		mov eax,pint 
+		mov eax,[eax]
+		mov hightemp,eax
+
+	}
+	
+cout<<"hightemp:"<<hightemp<<endl;
+cout<<"lowtemp:"<<lowtemp<<endl;
+displayint(hightemp);
+displayint(lowtemp);
+return 0;
+}
+void nixu()
+{
+	int i=0;
+	cout<<"-----------------------------------------------------------";
+	cout<<"-----------------------------------------------------------";
+	cout<<"-----------------"<<endl;
+	for(i=63;i>=32;i--)
+		cout<<((i-i%10)/10)<<" ";
+	cout<<"   ";
+	for(i=31;i>=0;i--)
+		cout<<((i-i%10)/10)<<" ";
+	//cout<<"   ";
+	cout<<endl;
+	for(i=63;i>=32;i--)
+		cout<<i%10<<" ";
+	cout<<"   ";
+	for(i=31;i>=0;i--)
+		cout<<i%10<<" ";
+	cout<<endl;
+	cout<<"----------------------------------------------------------";
+	cout<<"-----------------------------------------------------------";
+	cout<<"-----------------"<<endl;
+}
+int main()
+{
+	float i=3.0;
+	displayfloat(i);
+	cout<<endl;
+	double j=3.0;
+	displaydouble(j);
+	cout<<endl;
+	nixu();
+	long double k;
+	return 0;
+}

@@ -1,4 +1,5 @@
 #include <iostream>
+#include <windows.h>
 using namespace std;
 int displayint(int temp)
 {
@@ -51,32 +52,20 @@ _asm{
 int float2int(const float flo)
 {
     int hello,resultint,sign,exponent,mantissa=0;
-    //float temp=3.0;
-    //temp=*(float *)&flo;
     float temp=0.0;
     temp=*(float*)&flo;
-
-
     _asm{
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
         mov eax,temp;
         shr eax,31;
         mov sign,eax;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
         mov eax,temp;
         and eax,0x7f800000;
         shr eax,23;
         sub eax,127;
         mov exponent,eax;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-       cmp exponent,0
+        cmp exponent,0
         jb expnotpos
-        //mov resultint,1
-        //mov ecx,exponent
-        //shl eax,cl
-        
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-       mov cl,al
+        mov cl,al
         mov esi,1
         shl esi,cl
         mov eax,temp
@@ -86,16 +75,10 @@ int float2int(const float flo)
         shr eax,cl
         add eax,esi
         mov hello,eax
-
-       // displayint(hello);
-    mov resultint,eax
-        //add resultint,eax
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-         cmp sign,1
-         jnz expnotpos
-         neg resultint
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+        mov resultint,eax
+        cmp sign,1
+        jnz expnotpos
+        neg resultint
 expnotpos:
         cmp exponent,0
         jnz nextjudge
@@ -103,44 +86,25 @@ expnotpos:
         nextjudge:
         cmp sign,1
         jnz ok
-         mov resultint,-1
-
-ok:nop
+        mov resultint,-1
+        ok:nop
     }
-    //displayint(hello);
-   // cout<<"hello:"<<hello<<endl;
-    //displayfloat(temp);
-//cout<<"sign:"<<sign<<endl;
-//cout<<"exponent:"<<exponent<<endl;
-
-    displayint(resultint);
+    //displayint(resultint);
     return resultint;
 }
 
 int int2float(const int integer)
 {
-    cout<<endl<<"integer-3:"<<endl;
-    displayint(-3);
-    cout<<endl<<"integer3:"<<endl;
-    displayint(3);
-    cout<<endl<<"float3:"<<endl;
-    displayfloat(3.0);
-    cout<<endl<<"float-3:"<<endl;
-    displayfloat(-3.0);
+    
     float resultfloat=0.0;
-
- int world;
     int hello,resultint,exponent,mantissa=0;
-   // float temp=0.0;
-    //temp=*(int*)&integer;
     int sign=0;
      int integerpos;
      integerpos=(integer>=0)?integer:(-integer);
      if(integer<0)
         sign=1;
-
-    displayint(integer);
-int k,i=0;
+    //displayint(integer);
+    int k,i=0;
     _asm{
         mov eax,integerpos
         mov mantissa,eax
@@ -150,58 +114,62 @@ int k,i=0;
     for (i = 1; i <= 32; i++)
     {
         mantissa=mantissa<<1;
-        //world=((mantissa&0x80000000)!=0)?1:0;
         if(((mantissa&0x80000000)!=0)?1:0)
             break;
-
     }
     i=32-i;
     i--;
     exponent=i;
     exponent+=127;
     exponent=exponent<<23;
-    displayint(exponent);
-
-    cout<<"exponent="<<exponent<<endl;
+    //displayint(exponent);
+    //cout<<"exponent="<<exponent<<endl;
     mantissa=mantissa<<1;
     mantissa=mantissa>>9;
-    //_asm and mantissa,0xff800000
     _asm and mantissa,0x7fffff
     _asm{
         mov eax,resultfloat
         or eax,mantissa
         or eax,exponent
         mov resultfloat,eax
-
     }
-if(sign!=0)
+    if(sign!=0)
     _asm or resultfloat,0x80000000
-   // cout<<"mantissa:"<<endl;
-    //displayint(mantissa);
-
-    cout<<"resultfloat:"<<endl;
-    displayfloat(resultfloat);
-   // displayint(3);
-    //displayfloat(3.0);
-
-
+    //cout<<"resultfloat:"<<endl;
+    //displayfloat(resultfloat);
     return resultfloat;
+}
+void Demoflo2int()
+{
+    float numfloat=520.131;
+    int tempint=0;
+    tempint=float2int(numfloat);
+    cout<<"float2int:"<<numfloat<<"->"<<tempint<<endl;
+    cout<<numfloat<<"(float):"<<endl;
+  displayfloat(numfloat);
+   cout<<tempint<<"(int):"<<endl;
+  displayint(tempint);
+}
+void Demoint2flo()
+{
+     int numinteger=520;
+     float tempflo=0.0;
+     tempflo=int2float(numinteger);
+     cout<<"int2float:"<<numinteger<<"->"<<tempflo<<endl;
+     cout<<numinteger<<"(int):"<<endl;
+     displayfloat(numinteger);
+     cout<<tempflo<<"(float):"<<endl;
+     displayint(tempflo);
 }
 int main()
 {
-    float numfloat=4.9;
-    int tempint=0;
-tempint=float2int(numfloat);
-cout<<endl<<"float2int:"<<numfloat<<"->"<<tempint<<endl;
-   int numinteger=-3;
-   float tempflo=0.0;
-tempflo=int2float(numinteger);
-cout<<"int2float:"<<numinteger<<"->"<<tempflo<<endl;
-displayint(-3);
-displayfloat(-3.0);
-
-   // i=float2int(a);
-    //cout<<i;
-   // cout<<a<<endl;
+    Demoflo2int();
+    cout<<endl;
+    Demoint2flo();
+    system("pause");
     return 0;
 }
+//赵老师，目前那个80位的转换我还不清楚
+//如何给这个80位的数取个像int double这类的名字
+//或者说如何弄一个比word ptr 更大的ptr
+//是要弄一个结构体或是大数类么
