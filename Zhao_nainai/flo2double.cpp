@@ -137,13 +137,54 @@ float double2flo(double temp)
 	}
 return resultfloat;
 }
+double flo2double(float temp)
+{
+	double resultdouble=0.0;
+	int mantissa=0;
+	int highdouble=0;
+	int lowdouble=0;
+	_asm{//exponent
+		mov eax,temp
+		and eax,0x7f800000
+		shr eax,23
+		sub eax,127
+		add eax,1023
+		shl eax,20
+		mov highdouble,eax
+	}
 
+	if(temp<0)//sign flag
+	_asm or highdouble,0x80000000
+    _asm{//mantissa
+    	mov eax,temp
+    	and eax,0x7fffff
+    	shr eax,3
+    	//31-22=9//63-51=12//12-9=3
+    	or highdouble,eax
+    }
+    int *pint=(int *)&resultdouble;
+    pint++;
+    _asm{
+    	mov esi,highdouble
+    	mov eax,pint
+    	mov [eax],esi;
+    }
+
+	cout<<"highdouble:"<<highdouble<<endl;
+	displayint(highdouble);
+	cout<<endl<<"resultdouble:"<<resultdouble<<endl;
+return resultdouble;
+}
 int main()
 {
 
 	double tempdouble=520.131;
 	cout<<double2flo(tempdouble)<<endl;
 //qiuri();
+	float tempfloat=3.0;
+
+	cout<<"flo2double:"<<flo2double(3.0)<<endl;
+
 	system("pause");
 	return 0;
 }
