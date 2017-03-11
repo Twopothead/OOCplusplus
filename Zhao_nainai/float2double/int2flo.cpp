@@ -61,10 +61,7 @@ int float2int(const float flo)
     {
         flag=1;
         temppos=-temppos;
-
-
     }
-
     _asm{
         mov eax,temppos;
         shr eax,31;
