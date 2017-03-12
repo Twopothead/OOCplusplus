@@ -535,22 +535,54 @@ void Testflodouble2IEEE80()
    for ( i = 0; i < 10; i++)
    {
        func((void*)&a[i],sizeof(a[i]));
-   }
- 	
+   }	
    // ConvertToIeeeExtended(tempdouble,littlepowerptr);
-   
 }
-/*void Testflodouble2IEEE80()
+IEEE_80bitptr double2IEEE80(double tempdouble)
+{
+	IEEE_80bitptr qiuriptr;
+	qiuriptr=new char[10];
+	for(int i=0;i<10;i++)
+		qiuriptr[i]=0;
+	
+	ConvertToIeeeExtended(tempdouble,qiuriptr);
+return qiuriptr;
+}
+void displayIEEE80(IEEE_80bitptr qiuriptr)
+{
+	cout<<endl;
+for ( int i = 0; i < 10; i++)
+   {
+       func((void*)&qiuriptr[i],sizeof(qiuriptr[i]));
+   }
+   cout<<endl;
+}
+
+IEEE_80bitptr float2IEEE80(float tempfloat)
+{
+	double tempdouble=0.0;
+	tempdouble=flo2double(tempfloat);
+	return double2IEEE80(tempdouble);
+}
+void Testdouble2IEEE80()
+{
+	double tempdouble=-520.131;
+	IEEE_80bitptr qiuriptr;
+	cout<<endl<<tempdouble<<"(double)->IEEE80_bit"<<endl;
+	qiuriptr=double2IEEE80(tempdouble);
+	displayIEEE80(qiuriptr);
+}
+void Testfloat2IEEE80()
 {
 	float tempfloat=-520.131;
-	double tempdouble=-520.131;
-	IEEE_80bitptr curieptr;
-	flodouble2IEEE80(tempdouble);
-}*/
+	cout<<endl<<tempfloat<<"(float)->IEEE80_bit:"<<endl;
+	displayIEEE80(float2IEEE80(tempfloat));
+}
 int main()
-{
+{//本程序可以实现int,float,double,及其IEEE扩展80位这四者之间的的相互转换
 	Demo();
-	Testflodouble2IEEE80();
+	Testdouble2IEEE80();
+	Testfloat2IEEE80();
 	system("pause");
 	return 0;
 }
