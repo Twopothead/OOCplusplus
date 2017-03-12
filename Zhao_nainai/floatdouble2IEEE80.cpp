@@ -256,13 +256,10 @@ int main(int argc, char const *argv[])
     char *p=a;
     double k=3.0;
     ConvertToIeeeExtended(k,p);
-    //displaychar(p);
    for ( i = 0; i < 10; i++)
    {
        func((void*)&a[i],sizeof(a[i]));
    }
-    //cout<<k;
-
     return 0;
 
 }
