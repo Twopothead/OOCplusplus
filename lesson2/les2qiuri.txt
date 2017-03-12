@@ -1,0 +1,95 @@
+#include <iostream>
+using namespace std;
+int a[3][3]={1,2,3,4,5,6,7,8,9};
+int b[3][3]={9,8,7,6,5,4,3,2,1};
+int c[3][3]={0};
+/*void display(int &a,int n)
+{
+	int i,j;
+	for(i=0;i<n;i++)
+	{
+		for (j=0;j<n;j++)
+		{
+			cout<<a[i][j];
+		}
+		cout<<endl;
+	}
+}
+*/
+int mulmatrix(int m,int n)
+{
+	int i,j,k;
+	int value=0;
+	//int temp;
+	for(j=0;j<3;j++)
+	{
+	value+=a[m][j]*a[j][n];
+	}
+
+	return value;
+}
+int main()
+{
+	
+	int i,j,k;
+	
+	int n=3;
+	cout<<"6*a[3][3]="<<endl;
+for(i=0;i<n;i++)
+	{
+		for (j=0;j<n;j++)
+		{
+			cout<<6*a[i][j]<<" ";
+		}
+		cout<<endl;
+	}
+cout<<endl<<"a[3][3]*b[3][3]="<<endl;
+for(i=0;i<n;i++)
+	{
+		for (j=0;j<n;j++)
+		{
+			cout<<mulmatrix(i,j)<<" ";
+		}
+		cout<<endl;
+	}
+cout<<endl;
+int tempa;
+for(i=0;i<n;i++){
+		for(j=0;j<=(int)n/2;j++)
+		{
+			tempa=a[i][j];
+			a[i][j]=a[i][n-j-1];
+		   a[i][n-j-1]=tempa;
+		}
+}
+cout<<"a[3][3] traverse:"<<endl;
+for(i=0;i<n;i++)
+	{
+		for (j=0;j<n;j++)
+		{
+			cout<<a[i][j]<<" ";
+		}
+		cout<<endl;
+	};
+
+int d[3][3]={0};
+int a[3][3]={1,2,3,4,5,6,7,8,9};
+for(j=0;j<n;j++)
+{
+for(i=0;i<n;i++)
+{
+	d[j][i]=a[n-1-i][j];
+}
+}
+cout<<endl<<"a[3][3]xuanzhuan:"<<endl;
+for(i=0;i<n;i++)
+	{
+		for (j=0;j<n;j++)
+		{
+			cout<<d[i][j]<<" ";
+		}
+		cout<<endl;
+	}
+
+return 0;
+}

@@ -9,6 +9,8 @@ int float2int(const float flo);
 int int2float(const int integer);
 double flo2double(float temp);
 float double2flo(double temp);
+double int2double(int temp);
+int double2int(double temp);
 void Demodouble2flo();
 void Demoflo2double();
 void Demoint2flo();
@@ -269,6 +271,7 @@ float double2flo(double temp)
 	}
 	return resultfloat;
 }
+
 double flo2double(float temp)
 {
 	double resultdouble=0.0;
@@ -305,6 +308,14 @@ double flo2double(float temp)
 	//displayint(highdouble);
 	//cout<<endl<<"resultdouble:"<<resultdouble<<endl;
 	return resultdouble;
+}
+double int2double(int temp)
+{
+	return flo2double(int2float(temp));
+}
+int double2int(double temp)
+{
+	return  float2int((double2flo(temp)));
 }
 void Demoflo2int()
 {
@@ -357,9 +368,9 @@ void haha()
 	cout<<endl<<"....done"<<endl;
 }
 void Demo()
-{	int    tempint=520;
-	float  tempfloat=520.13;
-	double tempdouble=520.13;
+{	int    tempint=-520;
+	float  tempfloat=-520.13;
+	double tempdouble=-520.13;
 	int    resultint=0;
 	float  resultfloat=0.0;
 	double resultdouble=0.0;
@@ -382,25 +393,23 @@ void Demo()
 	displaydouble(flo2double(tempfloat));
 	cout<<endl<<endl<<"Demo:int2float";
 	haha();
-	cout<<endl<<"int2float:"<<tempint<<"(int)"<<"->"<<int2float(tempint)<<endl;
+	cout<<endl<<"int2float:"<<tempint<<"(int)"<<"->"<<int2float(tempint)<<"(float)"<<endl;
 	cout<<tempint<<"(int):"<<endl;
 	displayint(tempint);
 	cout<<endl<<int2float(tempint)<<"(float):"<<endl;
 	displayfloat(int2float(tempint));
 	cout<<endl<<endl<<"Demo:float2int";
 	haha();
-	cout<<endl<<"float2int:"<<tempfloat<<"(float)"<<"->"<<float2int(tempfloat)<<endl;
+	cout<<endl<<"float2int:"<<tempfloat<<"(float)"<<"->"<<float2int(tempfloat)<<"(int)"<<endl;
 	cout<<tempfloat<<"(float):"<<endl;
 	displayfloat(tempfloat);
 	cout<<endl<<float2int(tempfloat)<<"(int):"<<endl;
 	displayint(float2int(tempfloat));
 	haha();
-
 }
 int main()
 {
 	Demo();
-	//haha();
 	system("pause");
 	return 0;
 }
