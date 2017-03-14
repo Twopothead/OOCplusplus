@@ -13,17 +13,21 @@ typedef struct LNode
 void labelList(LinkList &L,int M,int N)
 {
 	LinkList p;
-	p=L->next;
+	//p=L->next;
+	p=L;
 	int m=0,n=0;
 	for(p=L->next;p->next!=NULL;p=p->next,n++)
 	{
 	   n=n%N;
 	   p->n=n;
 	   if(p->n==N-1)
+	   //if(p->n==N)
 	   	m++;
 	   p->m=m;
 	}
 }
+void displayMatrixLabel(LinkList &L,int m,int n);
+
 void CreatList(LinkList &L,int m,int n)
 {
 	LinkList p,r;
@@ -46,6 +50,7 @@ void CreatList(LinkList &L,int m,int n)
 
 	}
 labelList(L,m,n);
+displayMatrixLabel(L,m,n);
 
 }
 void InitList(LinkList &L)
@@ -100,6 +105,87 @@ void ListMatrotate(LinkList &L,int M,int N)
 
 
 }
+void Listzhedie(LinkList &L,int M,int N)
+{
+	LinkList l=new LNode;
+	LinkList p,r;
+	CreatList(l,N,M);
+	p=l;
+	r=L;
+	int i,j;
+	for(i=0;i<M*N;i++)
+	{
+		for(j=0;j<M*N;j++)
+		{
+			if((p->m==r->n)&&(p->n==r->m))
+			{
+				p->data=r->data;
+				break;
+			}	
+			else
+				r=r->next;
+
+		}
+		p=p->next;
+		r=L->next;
+	}
+	cout<<"end";
+	displayMatrix(l,N,M);
+	LinkList deleteptr=L->next;
+	while(deleteptr!=NULL)
+	{
+		LinkList delptr;
+		deleteptr=deleteptr->next;
+		delete deleteptr;
+	}
+	L->next=l->next;
+	l->next=NULL;
+	delete l;
+
+}
+void Listzuoyou(LinkList &L,int M,int N)
+{
+	LinkList l=new LNode;
+	LinkList p,r;
+	CreatList(l,M,N);
+	labelList(l,M,N);
+	displayMatrixLabel(l,M,N);
+	p=l;
+	r=L;
+	///displayMatrix(l,M,N);
+	int i,j;
+	//displayMatrix(l,M,N);
+displayMatrixLabel(l,M,N);
+	for(i=0;i<M*N;i++)
+	{
+		for(j=0;j<M*N;j++)
+		{
+			if((p->m==r->m))
+			{
+				p->data=r->data;
+				break;
+			}	
+			else
+				r=r->next;
+
+		}
+			p=p->next;
+		r=L->next;
+	}
+	cout<<"end";
+	displayMatrix(l,M,N);
+	LinkList deleteptr=L->next;
+	while(deleteptr!=NULL)
+	{
+		LinkList delptr;
+		deleteptr=deleteptr->next;
+		delete deleteptr;
+	}
+	L->next=l->next;
+	l->next=NULL;
+	delete l;
+
+}
 void ListMatrix()
 {
 	LinkList L;
@@ -110,10 +196,17 @@ void ListMatrix()
 	displayMatrix(L,m,n);
 	ListMatMul(L,8);
 	displayMatrix(L,m,n);
-	ListMatTraverse(L,n,m);
+	//cout<<"hhhh";
+	Listzhedie(L,m,n);
+	cout<<"orgin:"<<endl;
 	displayMatrix(L,n,m);
-	ListMatTraverse(L,m,n);
-	displayMatrixLabel(L,m,n);
+	Listzuoyou(L,n,m);
+
+
+	//ListMatTraverse(L,n,m);
+	//displayMatrix(L,n,m);
+	//ListMatTraverse(L,m,n);
+	//displayMatrixLabel(L,m,n);
 
 }
 void DynamicMatrix()
