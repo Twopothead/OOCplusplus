@@ -2,6 +2,7 @@
 #include <windows.h>
 #include <cstdlib>
 #include <vector>
+#include <stack>
 using namespace std;
 typedef int ElemType;
 typedef struct LNode
@@ -81,7 +82,7 @@ ListMatrics::reflextionMatrics()
 	p=L->next;
 	//cout<<"hello"<<p->data;
 	tempVec.push_back(p);
-	int i;
+	int i,j;
 	for( i=0;i<m*n;i++){
 		//cout<<p->data<<"\t";
 		p=p->next;
@@ -93,9 +94,27 @@ ListMatrics::reflextionMatrics()
 
 
 	}
+	LinkList temphead;
+	stack<int> tempS;
 	for(i=0;i<tempVec.size();i++)
 	{
 		cout<<tempVec[i]->data;
+		{
+			temphead=tempVec[i];
+			for(j=0;j<m;j++)
+			{
+				cout<<temphead->data;
+				tempS.push(temphead->data);
+				temphead=temphead->next;
+			}
+			temphead=tempVec[i];
+			for(j=0;j<m;j++)
+			{
+				temphead->data=tempS.top();
+				temphead=temphead->next;
+				tempS.pop();
+			}
+		}
 		cout<<endl;
 	}
 
@@ -120,6 +139,7 @@ ListMatrics::TestMatrics()
 	//mulMatrics(3);
 	//displayMatrics();
 	reflextionMatrics();
+	displayMatrics();
 }
 class DynamicMatrix
 {
