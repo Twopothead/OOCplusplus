@@ -1,6 +1,7 @@
 #include <iostream>
 #include <windows.h>
 #include <cstdlib>
+#include <vector>
 using namespace std;
 typedef int ElemType;
 typedef struct LNode
@@ -11,6 +12,115 @@ typedef struct LNode
 	struct LNode *Qnext;
 }LNode,*LinkList;
 typedef int* intMatrixptr;
+class ListMatrics{
+public:
+	ListMatrics(int M,int N);
+	displayMatrics();
+	~ListMatrics();
+	reflextionMatrics();
+	rotationMatrics();
+	transportMatrics();
+	mulMatrics(int x);
+	TestMatrics();
+private:
+	LinkList L;
+	int m;
+	int n;
+
+};
+ListMatrics::ListMatrics(int M,int N)
+{
+	L=(LinkList)new LNode;
+	L->next=NULL;
+	LinkList p,r;
+	int i;
+	m=M;
+	n=N;
+	r=L;
+	for(i=0;i<m*n;i++){
+		p=(LinkList)new LNode;
+		p->data=i;
+		r->next=p;
+		r=p;
+		p->next=NULL;
+	}
+
+}
+ListMatrics::~ListMatrics()
+{
+	LinkList p,r;
+	p=L;
+	while(p->next!=NULL){
+	LinkList Deltmp=p;
+	p=p->next;
+	delete Deltmp;
+	}
+}
+ListMatrics::displayMatrics()
+{
+	LinkList p;
+	p=L->next;
+	int i;
+	for( i=0;i<m*n;i++){
+		cout<<p->data<<"\t";
+		p=p->next;
+		if((i+1)%m==0)
+			cout<<endl;
+	}
+	cout<<endl;
+
+}
+ListMatrics::rotationMatrics()
+{
+
+}
+ListMatrics::reflextionMatrics()
+{
+	vector<LinkList> tempVec;
+	LinkList p;
+	p=L->next;
+	//cout<<"hello"<<p->data;
+	tempVec.push_back(p);
+	int i;
+	for( i=0;i<m*n;i++){
+		//cout<<p->data<<"\t";
+		p=p->next;
+		if((i+1)%m==0&&p!=NULL)
+		{
+			//cout<<endl<<endl<<p->data<<endl;
+			tempVec.push_back(p);
+		}	
+
+
+	}
+	for(i=0;i<tempVec.size();i++)
+	{
+		cout<<tempVec[i]->data;
+		cout<<endl;
+	}
+
+}
+ListMatrics::transportMatrics()
+{
+
+}
+ListMatrics::mulMatrics(int x)
+{
+	LinkList p;
+	p=L->next;
+	int i;
+	for( i=0;i<m*n;i++){
+		p->data*=x;
+		p=p->next;
+	}
+}
+ListMatrics::TestMatrics()
+{
+	displayMatrics();
+	//mulMatrics(3);
+	//displayMatrics();
+	reflextionMatrics();
+}
 class DynamicMatrix
 {
 public:
@@ -60,7 +170,15 @@ DynamicMatrix::~DynamicMatrix()
 	delete []matrix;
 }
 DynamicMatrix::reflextionMatrix(){
-
+	int i,j;
+	int temp;
+	for(i=0;i<m;i++){
+		for(j=0;j<n/2;j++){
+			temp=matrix[i][j];
+			matrix[i][j]=matrix[i][n-1-j];
+			matrix[i][n-1-j]=temp;
+		}
+	}
 
 }
 DynamicMatrix::rotationMatrix(){
@@ -82,7 +200,6 @@ intMatrixptr *rotationmatrix=new intMatrixptr[n];
 	temp=m;
 	m=n;
 	n=temp;
-
 }
 DynamicMatrix::transportMatrx(){
 	int i,j;
@@ -112,19 +229,29 @@ DynamicMatrix::MulMatrix(int x){
 	}
 }
 DynamicMatrix::TestMatrix(){
+	cout<<"orginal Matrix:"<<endl;
 	displayMatrix();
-	MulMatrix(8);
-	displayMatrix();
+	cout<<"transportmatrix:"<<endl;
 	transportMatrx();
 	displayMatrix();
+	cout<<"rotationMatrix:"<<endl;
 	rotationMatrix();
+	displayMatrix();
+	cout<<"reflextionMatrix:"<<endl;
+	reflextionMatrix();
+	displayMatrix();
+	int x;
+	cout<<"MulMatrix:(Please input x)"<<endl;
+	cin>>x;
+	MulMatrix(x);
 	displayMatrix();
 }
 int main()
 {
-	DynamicMatrix Mat(4,6);
-	Mat.TestMatrix();
+	//DynamicMatrix Mat(4,6);
+	//Mat.TestMatrix();
+	ListMatrics matrics(4,6);
+	matrics.TestMatrics();
 	system("pause");
 	return 0;
-
 }
