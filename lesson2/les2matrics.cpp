@@ -73,7 +73,8 @@ ListMatrics::displayMatrics()
 }
 ListMatrics::rotationMatrics()
 {
-
+	transportMatrics();
+	reflextionMatrics();
 }
 ListMatrics::reflextionMatrics()
 {
@@ -118,14 +119,29 @@ ListMatrics::transportMatrics()
 			tempVec.push_back(p);
 	}
 	LinkList temphead;
-	//stack<int> tempS;
-	for(i=0;i<tempVec.size();i++)
-	{
+	for(i=0;i<tempVec.size();i++){
 			temphead=tempVec[i];
-			cout<<temphead->data<<"\t"; 
 	}
-	cout<<endl;
-	
+	int *dataint;
+	dataint =new int [m*n];
+	int count=0;
+	for(j=0;j<m;j++){
+	for(i=0;i<tempVec.size();i++){
+			dataint[count]=tempVec[i]->data;
+			count++;
+			tempVec[i]=tempVec[i]->next;
+		}
+	}
+	int tempmn;
+	tempmn=m;
+	m=n;
+	n=tempmn;
+	LinkList tran;
+	tran=L->next;
+	for( i=0;i<m*n;i++){
+	tran->data=dataint[i];
+	   tran=tran->next;
+	}
 
 }
 ListMatrics::mulMatrics(int x)
@@ -140,12 +156,19 @@ ListMatrics::mulMatrics(int x)
 }
 ListMatrics::TestMatrics()
 {
+	cout<<"orginal Matrics:"<<endl;
 	displayMatrics();
-	//mulMatrics(3);
-	//displayMatrics();
-	//reflextionMatrics();
-	//displayMatrics();
+	cout<<"reflextionMatrics:"<<endl;
+	reflextionMatrics();
+	displayMatrics();
+	cout<<"transportmatrics:"<<endl;
 	transportMatrics();
+	displayMatrics();
+	cout<<"rotationmatrics:"<<endl;
+	rotationMatrics();
+	displayMatrics();
+	cout<<"mulMatrics:e.g x=3"<<endl;
+	mulMatrics(3);
 	displayMatrics();
 }
 class DynamicMatrix
@@ -267,18 +290,18 @@ DynamicMatrix::TestMatrix(){
 	cout<<"reflextionMatrix:"<<endl;
 	reflextionMatrix();
 	displayMatrix();
-	int x;
-	cout<<"MulMatrix:(Please input x)"<<endl;
-	cin>>x;
-	MulMatrix(x);
+	cout<<"MulMatrix:e.g x=3"<<endl;
+	MulMatrix(3);
 	displayMatrix();
 }
 int main()
 {
-	//DynamicMatrix Mat(4,6);
-	//Mat.TestMatrix();
+
 	ListMatrics matrics(4,6);
 	matrics.TestMatrics();
+	cout<<"----------------------------------"<<endl;
+	DynamicMatrix Mat(4,6);
+	Mat.TestMatrix();
 	system("pause");
 	return 0;
 }
