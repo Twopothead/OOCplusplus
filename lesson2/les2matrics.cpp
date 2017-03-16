@@ -80,47 +80,52 @@ ListMatrics::reflextionMatrics()
 	vector<LinkList> tempVec;
 	LinkList p;
 	p=L->next;
-	//cout<<"hello"<<p->data;
 	tempVec.push_back(p);
 	int i,j;
 	for( i=0;i<m*n;i++){
-		//cout<<p->data<<"\t";
 		p=p->next;
 		if((i+1)%m==0&&p!=NULL)
-		{
-			//cout<<endl<<endl<<p->data<<endl;
 			tempVec.push_back(p);
-		}	
-
-
 	}
 	LinkList temphead;
 	stack<int> tempS;
 	for(i=0;i<tempVec.size();i++)
 	{
-		cout<<tempVec[i]->data;
-		{
 			temphead=tempVec[i];
-			for(j=0;j<m;j++)
-			{
-				cout<<temphead->data;
+			for(j=0;j<m;j++){
 				tempS.push(temphead->data);
 				temphead=temphead->next;
 			}
 			temphead=tempVec[i];
-			for(j=0;j<m;j++)
-			{
+			for(j=0;j<m;j++){
 				temphead->data=tempS.top();
 				temphead=temphead->next;
 				tempS.pop();
 			}
-		}
-		cout<<endl;
 	}
 
 }
 ListMatrics::transportMatrics()
 {
+	vector<LinkList> tempVec;
+	LinkList p;
+	p=L->next;
+	tempVec.push_back(p);
+	int i,j;
+	for( i=0;i<m*n;i++){
+		p=p->next;
+		if((i+1)%m==0&&p!=NULL)
+			tempVec.push_back(p);
+	}
+	LinkList temphead;
+	//stack<int> tempS;
+	for(i=0;i<tempVec.size();i++)
+	{
+			temphead=tempVec[i];
+			cout<<temphead->data<<"\t"; 
+	}
+	cout<<endl;
+	
 
 }
 ListMatrics::mulMatrics(int x)
@@ -138,7 +143,9 @@ ListMatrics::TestMatrics()
 	displayMatrics();
 	//mulMatrics(3);
 	//displayMatrics();
-	reflextionMatrics();
+	//reflextionMatrics();
+	//displayMatrics();
+	transportMatrics();
 	displayMatrics();
 }
 class DynamicMatrix
