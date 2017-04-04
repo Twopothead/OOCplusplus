@@ -1,0 +1,131 @@
+#include <iostream>
+#include <sstream>
+#include <string>
+using namespace std;
+class Box{
+public :
+	Box();
+	Box(Box &Abox);
+	void disp_vol();
+
+private:
+	double length;
+	double width;
+	double height;
+	double volume;
+};
+Box::Box()
+{
+	cout<<"please input length:";
+	cin>>length;
+	cout<<"please input width:";
+	cin>>width;
+	cout<<"please input height:";
+	cin>>height;
+	volume =length*width*height;
+
+}
+Box::Box(Box &Abox)
+{
+	this->length=Abox.length/2;
+	this->height=Abox.height/2;
+	this->width=Abox.width/2;
+	this->volume =length*width*height;
+}
+void Box::disp_vol()
+{
+		volume =length*width*height;
+	cout<<"The volume of this box is "<<volume<<endl;
+}
+void TestBox()
+{	Box Abox;
+	Abox.disp_vol();
+	Box Bbox(Abox);
+	Bbox.disp_vol();
+cout<<"hello world!";
+}
+class Studemt;
+class Course;
+class Score;
+int globalno=19215116;
+int globalnumber=0;
+int globalgrade=0;
+class Course{
+public :
+	void highest();
+	void lowest();
+	void average();
+private:
+	int cno;
+	int cname;
+};
+void Course::highest()
+{
+}
+void Course::lowest()
+{
+
+}
+void Course::average()
+{
+}
+class Score{
+public :
+private:
+	int sscore;
+};
+class Student
+{
+public :
+	Student();
+	void putname();
+	void putno();
+	void putgrade();
+	void disp_stud();
+private:
+	int sno;
+	string sname;
+	int sgrade;
+	Course scourse;
+	Score sscore;
+};
+string int2string(int n)
+{
+ostringstream stream;
+stream<<n;  //nÎªintÀàÐÍ
+return stream.str();
+}
+string globalname="Qiu";
+Student::Student()
+{
+	
+	sno=globalno++;
+	sname=globalname+int2string(globalnumber++);
+	cout<<sno<<"  "<<this->sname<<endl;
+}
+
+void Student::putname()
+{
+	cout<<"Please modify sname:";
+		cin>>this->sname;
+		
+};
+void Student::putno()
+{
+	cout<<"Please modify sno:";
+		cin>>this->sno;
+		
+};
+void Student::putgrade()
+{	
+	cout<<"Please modify sgrade:";
+	cin>>this->sgrade;
+};
+int main()
+{
+//TestBox();
+	Student Q;
+	Student Qiu[20];
+
+return 0;
+}
