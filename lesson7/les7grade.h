@@ -35,6 +35,7 @@ class CCourse{
 		void setcredit();
 		void setcourseName();
 		void setteacher();
+		void setgrade();
 		CCourse();
 		CCourse(CCourse &other);
 		void setCourse();
@@ -50,6 +51,7 @@ class CStudent:CPerson{
 		CStudent();
 		void setStudent();
 		int totalcredit();
+		void stuinfo();
 		void gettotalcredit();
 	private:
 		string studentNumber;
