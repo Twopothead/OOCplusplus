@@ -214,7 +214,7 @@ int main()
 	//jinzhu.showinfo();
 	//meinv.showinfo();
 	CClass C;
-	
+
 
 
 
